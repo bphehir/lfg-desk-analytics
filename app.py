@@ -98,7 +98,7 @@ def load_cloud_data():
 
 df = load_cloud_data()
 
-# Fallback block if cloud feed fails entirely (keeps existing framework intact)
+# Fallback structure perfectly mirroring your real production database columns
 if df.empty:
     st.warning("Displaying fallback framework snapshot.")
     df = pd.DataFrame({
@@ -106,7 +106,15 @@ if df.empty:
         'Account': ['Hehir', 'Hehir_Tax', 'Polverino', 'Polverino_Tax', 'LFG', 'Natale'],
         'Par Value': [4605000, -1750000, 7425000, 0, 1980000, 500000],
         'Mkt Value': [4067275.50, -1713932.50, 7526219.15, 0, 1933996.25, 485116.45],
-        # ... rest of your structural columns remain identical ...
+        'DV01': [4231, 1348, 7000, 0, 2492, 294],
+        'Cash PnL': [2727.80, 0, 6612.00, 0, 3350.00, 138.25],       # Fixed spelling
+        'Daily Accrued': [205.37, 0, 972.98, 0, 249.50, 54.07],
+        'Daily CoC': [-243.38, 0, -1248.77, 0, -253.37, -64.50],
+        'Tickets': [11, 0, 3, 0, 1, 11],
+        'Line Items': [24, 0, 13, 0, 3, 13],
+        'Day Buy': [2280000, 0, 0, 0, 0, 60000],
+        'Day Sell': [480000, 0, 1895000, 0, 500000, 85000],
+        'Hedge Ratio': [0.246, 0, 0.184, 0, 0, 0]
     })
 # ==========================================
 #         HEADER & CONTROL PANEL
