@@ -75,7 +75,7 @@ import requests
 
 # Your PythonAnywhere web credentials
 PA_USER = "cNvbHgjPd"
-PA_PASS = "NLjdsd89K"
+PA_PASS = "NLjdsd89k"
 URL = f"https://ibn2025.pythonanywhere.com/data/LFG_Historical_Database.csv"
 
 @st.cache_data(ttl=3600)  # Caches data for 1 hour so it stays fast but picks up nightly updates
