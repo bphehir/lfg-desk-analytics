@@ -104,6 +104,7 @@ if df.empty:
     df = pd.DataFrame({
         'Date': [pd.to_datetime('2026-06-12')]*6,
         'Account': ['Hehir', 'Hehir_Tax', 'Polverino', 'Polverino_Tax', 'LFG', 'Natale'],
+        'Category': ['Cash', 'Hedge', 'Cash', 'Hedge', 'Cash', 'Cash'],
         'Par Value': [4605000, -1750000, 7425000, 0, 1980000, 500000],
         'Mkt Value': [4067275.50, -1713932.50, 7526219.15, 0, 1933996.25, 485116.45],
         'DV01': [4231, 1348, 7000, 0, 2492, 294],
