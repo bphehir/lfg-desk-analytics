@@ -250,7 +250,7 @@ if not agg_df.empty:
             "Accrued": format_accounting(r['Daily Accrued'], is_currency=True, decimals=2),
             "CoC": format_accounting(coc_val, is_currency=True, decimals=2) if "Tax" not in acct and coc_val != 0 else "-",
             "DV01": format_accounting(r['DV01'], is_currency=False),
-            "Hedge Ratio": format_accounting(hr_val, is_currency=False, is_percent=True) if hr_val != 0 and "Tax" not in acct else "-",
+            "Hedge Ratio": format_accounting(abs(hr_val), is_currency=False, is_percent=True) if hr_val != 0 and "Tax" not in acct else "-",
             "Line Items": str(int(r['Line Items'])),
             "Tickets": str(int(r['Tickets']))
         })
