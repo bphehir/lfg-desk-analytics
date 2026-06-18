@@ -111,6 +111,7 @@ if df.empty:
         'Cash PnL': [2727.80, 0, 6612.00, 0, 3350.00, 138.25],       # Fixed spelling
         'Daily Accrued': [205.37, 0, 972.98, 0, 249.50, 54.07],
         'Daily CoC': [-243.38, 0, -1248.77, 0, -253.37, -64.50],
+        'Daily Overhead': [704.54, 0, 704.54, 0, 0, 0],
         'Tickets': [11, 0, 3, 0, 1, 11],
         'Line Items': [24, 0, 13, 0, 3, 13],
         'Day Buy': [2280000, 0, 0, 0, 0, 60000],
@@ -185,6 +186,7 @@ for acct in unique_accounts:
     
     # Safely coerce CoC in case of "-" text strings in the tax books
     sum_coc = pd.to_numeric(acct_df['Daily CoC'], errors='coerce').fillna(0).sum()
+    sum_overhead = pd.to_numeric(acct_df.get('Daily Overhead', 0), errors='coerce').fillna(0).sum()
 
     agg_rows.append({
         'Account': acct,
@@ -249,6 +251,7 @@ if not agg_df.empty:
             "PnL": format_accounting(r['Cash PnL'], is_currency=True, decimals=2),
             "Accrued": format_accounting(r['Daily Accrued'], is_currency=True, decimals=2),
             "CoC": format_accounting(coc_val, is_currency=True, decimals=2) if "Tax" not in acct and coc_val != 0 else "-",
+            "Overhead": format_accounting(r.get('Daily Overhead', 0), is_currency=True, decimals=2) if r.get('Daily Overhead', 0) != 0 else "-",
             "DV01": format_accounting(r['DV01'], is_currency=False),
             "Hedge Ratio": format_accounting(abs(hr_val), is_currency=False, is_percent=True) if hr_val != 0 and "Tax" not in acct else "-",
             "Line Items": str(int(r['Line Items'])),
@@ -262,7 +265,7 @@ if not agg_df.empty:
 
     columns_order = [
         "Book", "Par Value", "Mkt Value", "Day Buy", "Day Sell", 
-        "PnL", "Accrued", "CoC", "DV01", "Hedge Ratio", "Line Items", "Tickets"
+        "PnL", "Accrued", "CoC", "Overhead", "DV01", "Hedge Ratio", "Line Items", "Tickets"
     ]
     ui_df = ui_df[columns_order]
 
