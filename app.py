@@ -120,18 +120,33 @@ if df.empty:
 # ==========================================
 #         HEADER & CONTROL PANEL
 # ==========================================
+# ==========================================
+#         HEADER & CONTROL PANEL
+# ==========================================
 st.title("LFG Fixed Income Desk Analytics")
 
 min_date = df['Date'].min().date()
 max_date = df['Date'].max().date()
 
-col_date, col_spacer = st.columns([3, 7])
+# Split the top area into three columns to fit the new Strategy filter
+col_date, col_cat, col_spacer = st.columns([3, 3, 4])
+
 with col_date:
     date_selection = st.date_input(
         "Select Date Range:",
         value=(max_date, max_date),
         min_value=min_date,
         max_value=max_date
+    )
+
+with col_cat:
+    # Check if Category exists to prevent errors on older historical data
+    available_categories = df['Category'].unique().tolist() if 'Category' in df.columns else ["Cash", "Hedge"]
+    
+    category_selection = st.multiselect(
+        "Filter by Strategy:",
+        options=available_categories,
+        default=available_categories
     )
 
 # Handle single vs multiple date selections from the UI widget
@@ -142,8 +157,11 @@ elif len(date_selection) == 1:
 else:
     start_date = end_date = max_date
 
-# Filter underlying dataset down to selected run window
+# Filter underlying dataset down to selected run window AND selected strategy
 mask = (df['Date'].dt.date >= start_date) & (df['Date'].dt.date <= end_date)
+if 'Category' in df.columns:
+    mask &= df['Category'].isin(category_selection)
+
 range_df = df[mask].copy()
 
 # ==========================================
