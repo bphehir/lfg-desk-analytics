@@ -202,6 +202,7 @@ for acct in unique_accounts:
         'Cash PnL': sum_pnl,
         'Daily Accrued': sum_accrued,
         'Daily CoC': sum_coc,
+        'Daily Overhead': sum_overhead,
         'Tickets': sum_tickets
     })
 
