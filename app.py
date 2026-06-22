@@ -78,7 +78,7 @@ PA_USER = "cNvbHgjPd"
 PA_PASS = "NLjdsd89K"
 URL = "https://ibn2025.pythonanywhere.com/data/LFG_Historical_Database.csv"
 
-@st.cache_data(ttl=3600)  # Caches data for 1 hour so it stays fast but picks up nightly updates
+# @st.cache_data(ttl=3600)  # Caches data for 1 hour so it stays fast but picks up nightly updates
 def load_cloud_data():
     try:
         # Securely request the file, using a dynamic timestamp to shatter the server cache
